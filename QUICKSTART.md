@@ -52,11 +52,12 @@ openssl req -x509 -newkey rsa:4096 -nodes -keyout key.pem -out cert.pem -days 36
 ### Option B: Use ngrok (Easiest, No Certificate Setup)
 
 ```bash
-# Install ngrok
-npm install -g ngrok
+# Install ngrok locally (no sudo needed)
+npm install
 
 # Start ngrok (in a separate terminal)
-ngrok http 3000
+npm run ngrok
+# Or use npx: npx ngrok http 3000
 ```
 
 Copy the HTTPS URL (e.g., `https://abc123.ngrok.io`) and update `manifest.xml`:

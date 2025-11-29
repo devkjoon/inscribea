@@ -90,8 +90,8 @@ Since Outlook requires HTTPS, you'll need to set up SSL for localhost. You have 
 
 **Option B: Use ngrok or similar tunneling service**
 
-1. Install ngrok: `npm install -g ngrok`
-2. Run: `ngrok http 3000`
+1. Install ngrok locally: `npm install` (already included in devDependencies)
+2. Run: `npm run ngrok` (or `npx ngrok http 3000`)
 3. Update the URLs in `manifest.xml` to use the ngrok URL
 
 **Option C: Use Office Add-in development tools**

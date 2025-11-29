@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inscribea AI Assistant</title>
+    
+    <!-- Office.js -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="taskpane.css" />
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Inscribea AI Assistant</h1>
+            <p class="subtitle">Generate professional emails with AI</p>
+        </header>
+
+        <div class="content">
+            <div class="section">
+                <label for="prompt-input">What would you like to say?</label>
+                <textarea 
+                    id="prompt-input" 
+                    placeholder="e.g., 'Write a professional follow-up email', 'Draft a polite decline', 'Create a meeting request'"
+                    rows="4"
+                ></textarea>
+            </div>
+
+            <div class="section">
+                <button id="generate-btn" class="btn btn-primary">
+                    <span id="generate-text">Generate Email</span>
+                    <span id="generate-spinner" class="spinner" style="display: none;"></span>
+                </button>
+                <button id="use-email-context" class="btn btn-secondary">
+                    Use Current Email Context
+                </button>
+            </div>
+
+            <div id="email-context-info" class="context-info" style="display: none;">
+                <h3>Email Context</h3>
+                <div id="context-details"></div>
+            </div>
+
+            <div class="section">
+                <label for="generated-email">Generated Email</label>
+                <textarea 
+                    id="generated-email" 
+                    placeholder="Your generated email will appear here..."
+                    rows="12"
+                    readonly
+                ></textarea>
+            </div>
+
+            <div class="section">
+                <button id="insert-btn" class="btn btn-success" disabled>
+                    Insert into Email
+                </button>
+                <button id="copy-btn" class="btn btn-secondary" disabled>
+                    Copy to Clipboard
+                </button>
+            </div>
+
+            <div id="error-message" class="error-message" style="display: none;"></div>
+            <div id="success-message" class="success-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="taskpane.js"></script>
+</body>
+</html>
+

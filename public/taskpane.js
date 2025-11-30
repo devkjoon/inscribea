@@ -103,7 +103,8 @@ async function generateEmail() {
     const response = await fetch('https://supermorally-mondial-kolton.ngrok-free.dev/api/generate-email', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'
       },
       body: JSON.stringify({
         prompt: prompt,
@@ -112,8 +113,13 @@ async function generateEmail() {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Failed to generate email');
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch (e) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      throw new Error(errorData.message || errorData.error || 'Failed to generate email');
     }
 
     const data = await response.json();

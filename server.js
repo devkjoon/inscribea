@@ -20,6 +20,14 @@ const openai = new OpenAI({
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Add headers to help with ngrok warning page
+app.use((req, res, next) => {
+  res.setHeader('ngrok-skip-browser-warning', 'true');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  next();
+});
+
 app.use(express.static('public'));
 
 // Health check endpoint
@@ -88,9 +96,25 @@ app.post('/api/generate-email', async (req, res) => {
   }
 });
 
+// Handle missing icon files (return 204 No Content instead of 404)
+app.get('/assets/icon-*.png', (req, res) => {
+  res.status(204).send();
+});
+
 // Serve static files
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', req.path === '/' ? 'taskpane.html' : req.path));
+  const filePath = req.path === '/' ? 'taskpane.html' : req.path;
+  const fullPath = path.join(__dirname, 'public', filePath);
+  
+  // Check if file exists
+  if (fs.existsSync(fullPath)) {
+    res.sendFile(fullPath);
+  } else if (req.path.startsWith('/assets/')) {
+    // Return 204 for missing assets instead of 404
+    res.status(204).send();
+  } else {
+    res.status(404).send('Not found');
+  }
 });
 
 // Start server with HTTPS if certificates exist, otherwise HTTP

@@ -100,7 +100,7 @@ async function generateEmail() {
   hideMessages();
 
   try {
-    const response = await fetch('https://localhost:3000/api/generate-email', {
+    const response = await fetch('https://supermorally-mondial-kolton.ngrok-free.dev/api/generate-email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
